@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista 1 Exercício 2</title>
+</head>
+<body>
+
+    <h1>Classificação de Dias da Semana</h1>
+    
+    <form action="/classificar" method="post">
+        <label for="dia">Digite o número do dia (1-7):</label> <br>
+        <input type="text" name="dia" id="dia" value="<%= valores.dia %>"> <br>
+        <button type="submit">classificar</button>
+     </form>
+
+    <% 
+     if(resultado){
+       
+        %>
+        <h2>Entrada: <%= valores.dia %></h2>
+        <h2>Dia da Semana: <%= resultado.dia %></h2>
+        <% if (resultado.dia === "Valor inválido") { %>
+            <p style="color: red;">Número inválido. Informe um valor entre 1 e 7.</p>
+        <% } %>
+        <%
+     }else{
+        
+        %>
+            <h2>Não temos retorno</h2>
+        <%
+     }
+    %>
+
+
+</body>
+</html>
