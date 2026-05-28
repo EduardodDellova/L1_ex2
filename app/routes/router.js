@@ -1,11 +1,19 @@
 const express = require("express");
 const router = express.Router();
+const { body, validationResult} = require("express-validator"); 
 
 router.get("/", (req, res)=>{
-      res.render("pages/index",{"resultado":null,"valores":{"dia":"digite o número do dia"}});  
+      res.render("pages/index",{"resultado":null, "erros":null, "valores":{"dia":"digite o número do dia"}});  
 });
 
-router.post("/classificar", (req, res)=>{
+router.post("/classificar",
+    body("dia").isInt().withMessage("O dia precisar ser um número inteiro."),
+ (req, res)=>{
+
+    const erros = validationResult(req); 
+    if (!errors.isEmpty()) {
+        return res.render("pages/index", { "resultado":null, "erros":errors, "valores":{"dia":req.body.dia}});
+    }
 
     
     const diaNum = Number(req.body.dia);
@@ -25,7 +33,7 @@ router.post("/classificar", (req, res)=>{
 
     
     let objJson = { dia: nomeDia };
-    res.render("pages/index", {"resultado": objJson, "valores": {"dia": req.body.dia}});
+    res.render("pages/index", {"resultado": objJson, "valores": {"dia": req.body.dia}, "erros":null});
 
 });
 
